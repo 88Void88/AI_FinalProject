@@ -20,7 +20,7 @@ batch_size = 10
 latent_z_size = 100
 filename_G = "netG.params"
 filename_D = "netD.params"
-param_datapath = "checkpoints"
+param_datapath = "checkpoints_pokemon"
 
 use_gpu = True
 ctx = mx.gpu() if use_gpu else mx.cpu()
@@ -28,7 +28,7 @@ ctx = mx.gpu() if use_gpu else mx.cpu()
 lr = 0.0002
 beta1 = 0.5
 
-data_path = 'car_middle_dataset'
+data_path = 'pokemon_dataset'
 
 if not os.path.exists(data_path):
     print("Dataset not found! (folder: {})".format(data_path))
@@ -41,6 +41,7 @@ img_list = []
 
 def transform(data, target_wd, target_ht):
     # resize to target_wd * target_ht
+    data = data[:,:,:3]
     data = mx.image.imresize(data, target_wd, target_ht)
     # transpose from (target_wd, target_ht, 3)
     # to (3, target_wd, target_ht)
